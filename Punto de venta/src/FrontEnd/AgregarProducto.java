@@ -17,8 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author erikb
  */
 public class AgregarProducto extends javax.swing.JDialog {
-    private JDialog ventanaProductos;// Referencia a la ventana de productos
-    
+    private JDialog ventanaProductos;// Referencia a la ventana de productos 
     
     public AgregarProducto(java.awt.Frame parent, boolean modal, JDialog ventanaProductos) {
         super(parent, modal);
@@ -26,16 +25,21 @@ public class AgregarProducto extends javax.swing.JDialog {
         this.ventanaProductos = ventanaProductos;
     }
     
-    public void add(Product product, InfoProducto i) throws SQLException{
+    public boolean add(Product product, InfoProducto i) throws SQLException{
         try {
-            Product.addProduct(product);
-            Product.addInfoProduct(i);
-            javax.swing.JOptionPane.showMessageDialog(null, "Producto agregado exitosamente");
-            dispose();
+            boolean p=Product.addProduct(product);
+            if (p) {
+                Product.addInfoProduct(i);
+                javax.swing.JOptionPane.showMessageDialog(null, "Producto agregado exitosamente");
+                dispose();
+                return true;
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
             javax.swing.JOptionPane.showMessageDialog(this, "Error al agregar el producto", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-        }     
+        }  
+        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -192,6 +196,7 @@ public class AgregarProducto extends javax.swing.JDialog {
         String t4=jTextField4.getText();
         String t5=jTextField5.getText();
         String t6=jTextField6.getText();
+        boolean resultado = false;
         
         if ((t2 != null && !t2.trim().isEmpty()) && (t3 != null && !t3.trim().isEmpty()) && (t4 != null && !t4.trim().isEmpty()) && (t5 != null && !t5.trim().isEmpty()) && (t6 != null && !t6.trim().isEmpty())) {
             Product pnew= new Product();
@@ -204,13 +209,15 @@ public class AgregarProducto extends javax.swing.JDialog {
             i.setExistencias(Integer.parseInt(t5));
             i.setProveedor(t6);
             try {
-                add(pnew, i);
+                resultado=add(pnew, i);
             } catch (SQLException ex) {
                 Logger.getLogger(EdtarProducto.class.getName()).log(Level.SEVERE, null, ex);
             }
-            ventanaProductos.dispose();
-            products productWindow = new products(null,true);
-            productWindow.setVisible(true);  // Muestra la nueva ventana
+            if (resultado) {
+                ventanaProductos.dispose();
+                products productWindow = new products(null,true);
+                productWindow.setVisible(true);  // Muestra la nueva ventana
+            }
         }else{
             javax.swing.JOptionPane.showMessageDialog(null, "No debe haber campos vacios", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }

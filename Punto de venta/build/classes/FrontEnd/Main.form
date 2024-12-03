@@ -58,10 +58,10 @@
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="txtIdProduct" min="-2" pref="370" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btnSearch" min="-2" pref="133" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnAdd" min="-2" pref="119" max="-2" attributes="0"/>
+                          <Component id="btnAdd" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -81,10 +81,12 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel3" min="-2" pref="67" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="btnAdd" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnSearch" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtIdProduct" alignment="0" pref="42" max="32767" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="txtIdProduct" alignment="3" pref="42" max="32767" attributes="0"/>
+                              <Component id="btnSearch" alignment="3" max="32767" attributes="0"/>
+                              <Component id="btnAdd" alignment="3" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -384,6 +386,17 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductsActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JButton" name="btnClientes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Clientes"/>
+                <Property name="focusable" type="boolean" value="false"/>
+                <Property name="horizontalTextPosition" type="int" value="0"/>
+                <Property name="verticalTextPosition" type="int" value="3"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClientesActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JScrollPane" name="container">
@@ -465,6 +478,9 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtIdProductActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnSearch">
           <Properties>
@@ -482,7 +498,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Detalles"/>
+            <Property name="text" type="java.lang.String" value="Generar venta"/>
             <Property name="toolTipText" type="java.lang.String" value="Detalles del producto"/>
           </Properties>
         </Component>

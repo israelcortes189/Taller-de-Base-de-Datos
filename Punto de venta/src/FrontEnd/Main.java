@@ -59,6 +59,7 @@ public class Main extends javax.swing.JFrame {
         btnEmpleado = new javax.swing.JButton();
         btnVentas = new javax.swing.JButton();
         btnProducts = new javax.swing.JButton();
+        btnClientes = new javax.swing.JButton();
         container = new javax.swing.JScrollPane();
         tMain = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -248,6 +249,17 @@ public class Main extends javax.swing.JFrame {
         });
         jToolBar1.add(btnProducts);
 
+        btnClientes.setText("Clientes");
+        btnClientes.setFocusable(false);
+        btnClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnClientes);
+
         container.setBackground(new java.awt.Color(102, 102, 102));
         container.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -302,6 +314,11 @@ public class Main extends javax.swing.JFrame {
         txtIdProduct.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         txtIdProduct.setForeground(new java.awt.Color(0, 51, 0));
         txtIdProduct.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIdProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdProductActionPerformed(evt);
+            }
+        });
 
         btnSearch.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnSearch.setText("Buscar");
@@ -312,7 +329,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         btnAdd.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnAdd.setText("Detalles");
+        btnAdd.setText("Generar venta");
         btnAdd.setToolTipText("Detalles del producto");
 
         btnPagar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -340,10 +357,10 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtIdProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(56, 56, 56)
@@ -358,10 +375,11 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtIdProduct, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtIdProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(container, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -412,7 +430,8 @@ public class Main extends javax.swing.JFrame {
            lblMonto.setText(TRANSACTION.getMonto()); 
            TRANSACTION.setMontoTotal(); 
            lblIva.setText(TRANSACTION.getIva());
-           lblTotal.setText(String.format("%.2f", TRANSACTION.getTotal()));
+//           lblTotal.setText(String.format("%.2f", TRANSACTION.getTotal()));
+           lblTotal.setText(TRANSACTION.getTotal());
            lblEnCaja.setText(saveEarns.getCash(417));
         } 
     }//GEN-LAST:event_tMainMouseClicked
@@ -442,14 +461,24 @@ public class Main extends javax.swing.JFrame {
       
     }//GEN-LAST:event_txtPagoActionPerformed
 
+    private void txtIdProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdProductActionPerformed
+       
+    }//GEN-LAST:event_txtIdProductActionPerformed
+
     private void btnProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductsActionPerformed
         products productWindow = new products(this,true);
-        productWindow.setVisible(true);  // Muestra la nueva ventana
+        productWindow.setVisible(true);  // Muestra la nueva ventana           // TODO add your handling code here:
     }//GEN-LAST:event_btnProductsActionPerformed
+
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+        clientes clienteWindow = new clientes(this,true);
+        clienteWindow.setVisible(true);  // Muestra la nueva ventana        // TODO add your handling code here:
+    }//GEN-LAST:event_btnClientesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnEmpleado;
     private javax.swing.JButton btnPagar;
     private javax.swing.JButton btnProducts;

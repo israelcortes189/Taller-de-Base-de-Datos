@@ -2,6 +2,7 @@ package FrontEnd;
 
 import BackEnd.InfoProducto;
 import BackEnd.Product;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.List;
@@ -116,6 +117,15 @@ public class products extends javax.swing.JDialog{
     public products(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        txtIdProduct.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyTyped(java.awt.event.KeyEvent evt) {
+            char caracter = evt.getKeyChar();
+            // Verifica si el caracter no es un número
+            if ((caracter < '0' || caracter > '9') && caracter != KeyEvent.VK_BACK_SPACE) {
+                evt.consume();  // Cancela el evento si no es un número
+            }
+        }
+        });
         cargarProductos();
     }
 

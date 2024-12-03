@@ -4,8 +4,10 @@ package BackEnd;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -74,8 +76,6 @@ public class Product {
     public String toString() {
         return "Product{" + "id=" + id + ", name=" + name + ", type=" + type + ", price=" + price + ", iva=" + iva + '}';
     }
-    
-    
     
     //Metodo para obtener una Lista de Productos existentes
     public static List<Product> getProducts() throws SQLException {
@@ -282,28 +282,40 @@ public class Product {
     con.desconectar();
 }
     
-    public static void addProduct(Product product) throws SQLException {
-    // Establece la conexión
+    public static boolean addProduct(Product product) {
     Conect con = new Conect();
-    // Sentencia SQL para insertar un nuevo producto
-    String sql = "INSERT INTO productos (id_producto, nombre, tipo, precio) VALUES (? , ?, ?, ?)";
-    PreparedStatement statement = con.getCx().prepareStatement(sql);
-    // Configura los parámetros en la consulta
-    statement.setInt(1, product.getId());
-    statement.setString(2, product.getName());
-    statement.setString(3, product.getType());
-    statement.setDouble(4, product.getPrice());
-    // Ejecuta la inserción
-    int rowsInserted = statement.executeUpdate();
-    if (rowsInserted > 0) {
-        System.out.println("Producto agregado exitosamente.");
-    } else {
-        System.out.println("No se pudo agregar el producto.");
-    }
+    String sql = "INSERT INTO productos (id_producto, nombre, tipo, precio) VALUES (?, ?, ?, ?)";
 
-    // Cierra la conexión
-    con.desconectar();
+    try (PreparedStatement statement = con.getCx().prepareStatement(sql)) {
+        // Configura los parámetros en la consulta
+        statement.setInt(1, product.getId());
+        statement.setString(2, product.getName());
+        statement.setString(3, product.getType());
+        statement.setDouble(4, product.getPrice());
+
+        // Ejecuta la inserción
+        int rowsInserted = statement.executeUpdate();
+        if (rowsInserted > 0) {
+            JOptionPane.showMessageDialog(null, "Producto agregado exitosamente.");
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo agregar el producto.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (SQLIntegrityConstraintViolationException ex) {
+        // Maneja la violación de clave foránea específicamente
+        JOptionPane.showMessageDialog(null, "Error: No se puede agregar el producto debido a una violación de clave foránea.\n" 
+                                      + "Verifica que el producto relacionado exista en la tabla 'productos'.",
+                                      "Violación de integridad referencial", JOptionPane.ERROR_MESSAGE);
+    } catch (SQLException ex) {
+        // Maneja otras excepciones SQL generales
+        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(),
+                                      "Error en la inserción", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        con.desconectar();  // Cierra la conexión
     }
+        return false;
+}
     
     public static void addInfoProduct(InfoProducto infoproduct) throws SQLException {
     // Establece la conexión
@@ -324,5 +336,5 @@ public class Product {
     }
     // Cierra la conexión
     con.desconectar();
-}   
+}      
 }

@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,7 +31,7 @@ public class DataSales {
                 case 1: 
                    sql = "SELECT * FROM detalle_ventas WHERE MONTHNAME(fecha) = ?";
                    statement = con.getCx().prepareStatement(sql);
-                   statement.setString(1, traslate((int) parameter));    
+                   statement.setString(1, Control.traslate((int) parameter));    
                 break;    
                 case 2: 
                    sql = "SELECT * FROM detalle_ventas WHERE clave = ?";
@@ -102,22 +100,6 @@ public class DataSales {
         }
     }
     
-    private static String traslate(int index){
-        switch(index){
-            case(0): return "January";
-            case(1): return "February";
-            case(2): return "March";
-            case(3): return "April";
-            case(4): return "May";
-            case(5): return "June";
-            case(6): return "July";
-            case(7): return "Auguts";
-            case(8): return "September";
-            case(9): return "October";
-            case(10): return "November";
-            case(11): return "December";
-            default: return "";    
-        }
-    }
+    
     
 }

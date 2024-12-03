@@ -60,7 +60,8 @@ public class TRANSACTION {
       
     /**
      * Este método hace la transacción. -----------------------TRANSACTION----------------------------------------------------
-     * @param dtm 
+     * Guarda la venta en la tabla detalle_ventas.
+     * @param dtm El modelo de la tabla rpincipal donde se almacenan los productos.
      */
     public static void saveSale(DefaultTableModel dtm) {
       Conect con = new Conect();
@@ -144,9 +145,6 @@ public class TRANSACTION {
         }
     }
     
-    public static void exists(){
-        
-    }
     
     /**
      * Crea una coleccion de id para usarse como filtros 
@@ -244,6 +242,8 @@ public class TRANSACTION {
     public static void removeFromLog(int index){
         monto -= (monto > 0)? log.get(index).getPrice() : 0;
         iva -= (iva > 0)? log.get(index).getIva() : 0; 
+        monto = Math.round(monto);
+        iva = Math.round(iva);
         TRANSACTION.log.remove(index); 
     }
 
@@ -255,6 +255,7 @@ public class TRANSACTION {
     
     public static void setMontoTotal(){
         total = ((monto * iva)/100)+monto;
+        total = Math.round(total);
     }
 
     public static String getTotal() {

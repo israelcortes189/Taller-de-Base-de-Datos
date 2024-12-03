@@ -133,44 +133,40 @@ public class DataEmployees {
 
     
     public static void updateEmployee(String column, String newValue, String key) {
-    // Lista de columnas permitidas para actualización
-    List<String> allowedColumns = Arrays.asList("nombre", "apellido_paterno", "apellido_materno", "`password`", "id_caja");
-    
-    // Verifica si la columna está permitida
-    if (!allowedColumns.contains(column)) {
-        JOptionPane.showMessageDialog(null, "Columna no válida.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+        List<String> allowedColumns = Arrays.asList("nombre", "apellido_paterno", "apellido_materno", "`password`", "id_caja");
+      
+        if(!allowedColumns.contains(column)) {
+            JOptionPane.showMessageDialog(null, "Columna no válida.", "Error", JOptionPane.ERROR_MESSAGE);
+          return;
+        }
 
-    Conect con = new Conect();
-    PreparedStatement statement = null;
+        Conect con = new Conect();
+        PreparedStatement statement = null;
 
-    try {
-        String update = "UPDATE administradores_sistema SET " + column + " = ? WHERE clave = ?";
-        statement = con.getCx().prepareStatement(update);
+           try {
+              String update = "UPDATE administradores_sistema SET " + column + " = ? WHERE clave = ?";
+              statement = con.getCx().prepareStatement(update);
+              statement.setString(1, newValue); // Nuevo valor para la columna especificada
+              statement.setString(2, key);      // Clave del registro a actualizar
 
-        statement.setString(1, newValue); // Nuevo valor para la columna especificada
-        statement.setString(2, key);      // Clave del registro a actualizar
-
-        // Ejecutar la actualización
-        int rowsAffected = statement.executeUpdate();
-        if (rowsAffected < 0) {
-             JOptionPane.showMessageDialog(null, "No se encontró un registro con la clave especificada.", "Atención", JOptionPane.WARNING_MESSAGE);
-        } else {
+              int rowsAffected = statement.executeUpdate();
+                if(rowsAffected < 0) {
+                   JOptionPane.showMessageDialog(null, "No se encontró un registro con la clave especificada.", "Atención", JOptionPane.WARNING_MESSAGE);
+                }else {
            
-        }
-JOptionPane.showMessageDialog(null, "Actualización realizada.", "Atención", JOptionPane.INFORMATION_MESSAGE);
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
-        try {
-            if (statement != null) statement.close();
-            if (con != null) con.desconectar();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+                }
+               JOptionPane.showMessageDialog(null, "Actualización realizada.", "Atención", JOptionPane.INFORMATION_MESSAGE);
+           }catch(SQLException e) {
+                e.printStackTrace();
+           }finally {
+              try {
+                 if (statement != null) statement.close();
+                 if (con != null) con.desconectar();
+              }catch(SQLException e) {
+                 e.printStackTrace();
+              }
+           }
     }
-}
 
     
     /**

@@ -60,6 +60,11 @@ public class Login extends javax.swing.JDialog implements KeyListener{
         txtClave.setBackground(new java.awt.Color(204, 204, 204));
         txtClave.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtClave.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtClave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClaveActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 153));
@@ -168,6 +173,10 @@ public class Login extends javax.swing.JDialog implements KeyListener{
 //        txtPassword.setText("");
 //        txtPassword.setText(Password.setChar(evt.getKeyCode(), evt.getKeyChar()));  
     }//GEN-LAST:event_txtPasswordKeyPressed
+
+    private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClaveActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
